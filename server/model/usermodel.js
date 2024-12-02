@@ -26,6 +26,10 @@ const userSchema = new Schema({
     type: Number,
     // required: false,
   },
+  about: {
+    type: String,
+    default: "Write about yourself",
+  },
   password: {
     type: "string",
     select: false,

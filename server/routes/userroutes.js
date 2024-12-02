@@ -22,11 +22,11 @@ router.get("/getresettoken", authcontroller.getallresettoken);
 
 router.post("/verifyemail", usercontroller.verifyuseremail);
 
-// router.post(
-//   "/user/profile",
-//   // authcontroller.checkvaliduser,
-//   userbookcontroller.profile
-// );
+router.post(
+  "/user/profile",
+  // authcontroller.checkvaliduser,
+  usercontroller.profile
+);
 
 // router.post("/:userID/wishlist", userbookcontroller.addToWishlist);
 

@@ -1,5 +1,5 @@
 import React from "react";
-// import heroImage from "./../image/Hero.png";
+import Img1 from "../images/img4.jpg";
 // import heroImage1 from "./../image/Logo.png";
 const Carousel = () => {
   return (
@@ -15,7 +15,7 @@ const Carousel = () => {
           <div className="duration-700 ease-in-out" data-carousel-item>
             <div className="relative w-full h-full">
               <img
-                // src={heroImage}
+                src={Img1}
                 className=" block w-full h-full object-cover"
                 alt="Slide 1"
               />

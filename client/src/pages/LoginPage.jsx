@@ -4,9 +4,9 @@ import Footer from "../components/Footer";
 // import { store } from "./../store/store";
 // import { loginUser } from "../store2/userSlice";
 import { Link } from "react-router-dom";
-// import { store } from "./../store/store";
-// import * as useractions from "./../store/actions/userinfoactions";
-// import * as authactions from "./../store/actions/authactions";
+import { store } from "./../store/store";
+import * as useractions from "./../store/actions/userinfoactions";
+import * as authactions from "./../store/actions/authactions";
 import { useNavigate } from "react-router-dom";
 // import GoogleLoginPage from "./Auth/login_signupgoogle";
 import { ToLink } from "../App";
@@ -39,9 +39,13 @@ function Login() {
       });
       // console.log(response);
       if (response.data) {
+        store.dispatch(useractions.setuserinfo(response.data.user));
+        store.dispatch(authactions.setAccessToken(response.data.AccessToken));
+        store.dispatch(authactions.setRefreshToken(response.data.RefreshToken));
+        store.dispatch(useractions.setlogin(true));
         notify("Login successful");
         console.log(response.data);
-        navigate("/");
+        navigate("/dashboard");
       }
       setLoading(false);
     } catch (e) {

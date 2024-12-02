@@ -6,12 +6,14 @@ import RegisterPage from "./pages/RegistrationPage";
 import LoginPage from "./pages/LoginPage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
 import VerifyEmail from "./components/emailverify.jsx";
+import Profile from "./components/Profile";
 export const ToLink = "http://localhost:5000";
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />

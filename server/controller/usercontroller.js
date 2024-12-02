@@ -190,6 +190,32 @@ exports.getuserinfo = async (req, res) => {
     });
   }
 };
+exports.profile = async (req, res) => {
+  const { name, profileImage, phoneno, about } = req.body;
+  console.log(req.body);
+  try {
+    let user = await userSchema.findByIdAndUpdate(req.body._id, {
+      ...req.body,
+      profileImage: profileImage,
+      phoneno: phoneno,
+      about: about,
+      name: name,
+    });
+    console.log(user);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    user = await userSchema.findById(req.body._id);
+    console.log(user);
+    res.status(200).json({
+      status: "success",
+      message: "User profile updated successfully",
+      data: user,
+    });
+  } catch (err) {
+    res.status(500).json({ status: "error", message: err.message });
+  }
+};
 exports.userlogin = async (req, res) => {
   console.log(req.body);
   try {

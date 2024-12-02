@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { notify } from "../store/utils/notify";
+import { notify } from "../util/notify";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../API/userlogin.jsx";
 import * as userinfoactions from "../store/actions/userinfoactions.jsx";
@@ -8,39 +8,44 @@ import Navbar from "./Navbar";
 import { store } from "./../store/store";
 import * as useractions from "./../store/actions/userinfoactions";
 import * as authactions from "./../store/actions/authactions";
-import * as bookactions from "./../store/actions/bookactions";
 import { useNavigate } from "react-router";
-import { ToLink } from "../App.js";
-import axios from "axios";
+import teamColor from "../data/color.jsx";
+import MI from "../images/teamLogo/mi.png";
+import CSK from "../images/teamLogo/csk.jpg";
+import GT from "../images/teamLogo/gt.png";
+import DC from "../images/teamLogo/dc.jpg";
+import KKR from "../images/teamLogo/kkr.jpg";
+import KP from "../images/teamLogo/pk.png";
+import LSG from "../images/teamLogo/lsg.png";
+import RR from "../images/teamLogo/rr.png";
+import RCB from "../images/teamLogo/rcb.jpg";
+import SRH from "../images/teamLogo/srh.png";
+
 const UserProfile = () => {
-  const [userState, setUserState] = useState({ userinfo: null });
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const userState = useSelector((state) => state.user);
+  const team = useSelector((state) => state.user.userinfo.team);
+  const teamData = teamColor.find((teamItem) => teamItem.team === team);
+  const myTeam = teamData?.shortTeam;
+
+  const profile = useSelector((state) => state.user.userinfo.profileImage);
+  const accessToken = useSelector((state) => state.auth.accessToken);
+
   const [name, setName] = useState(userState.userinfo.name || "");
   const [mobile, setMobile] = useState(userState.userinfo.phoneno || "");
   const [email, setEmail] = useState(userState.userinfo.emailid); // Email is not editable
   const [about, setAbout] = useState(userState.userinfo.about || "");
-  const [profileImage, setProfileImage] = useState(
-    userState.userinfo.profile || null
-  );
+  const [profileImage, setProfileImage] = useState(profile || null);
   const [isEditing, setIsEditing] = useState(false);
-  const [showUploadInput, setShowUploadInput] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`${ToLink}/user/register`); // Replace with your backend API endpoint
-        setUserState({ userinfo: response.data });
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
+    setName(userState.userinfo.name || "");
+    setMobile(userState.userinfo.phoneno || "");
+    setEmail(userState.userinfo.emailid);
+    setAbout(userState.userinfo.about || "");
+    setProfileImage(userState.userinfo.profileImage || null);
   }, [userState.userinfo]);
 
   const handleSave = async () => {
@@ -53,30 +58,24 @@ const UserProfile = () => {
       about,
       profileImage,
     };
-    // try {
-    //   const response = await updateProfile(userInfoUpdate, accessToken);
-    //   console.log(response.data.profileImage);
-    //   const profileInfo = {
-    //     ...userState.userinfo,
-    //     profileImage: response.data.profileImage,
-    //   };
-    //   if (response.status === "success") {
-    //     notify("Data successfully updated");
-    //   } else {
-    //     notify("Failed to update user profile");
-    //   }
-    // } catch (error) {
-    //   console.error("Error in profile updation", error);
-    //   notify("An error occurred while updating the user profile");
-    // }
-  };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    // if (file) {
-    setProfileImage(file);
-    // }
-    setShowUploadInput(false);
+    try {
+      const response = await updateProfile(userInfoUpdate, accessToken);
+      // console.log(response.data.profileImage);
+      // const profileInfo = {
+      //   ...userState.userinfo,
+      //   profileImage: response.data.profileImage,
+      // };
+      if (response.status === "success") {
+        notify("Data successfully updated");
+        dispatch(userinfoactions.updateUserProfile(userInfoUpdate));
+      } else {
+        notify("Failed to update user profile");
+      }
+    } catch (error) {
+      console.error("Error in profile updation", error);
+      notify("An error occurred while updating the user profile");
+    }
   };
 
   const handleSignOut = () => {
@@ -84,8 +83,34 @@ const UserProfile = () => {
     store.dispatch(useractions.setuserinfo({}));
     store.dispatch(authactions.setAccessToken(null));
     store.dispatch(authactions.setRefreshToken(null));
-    store.dispatch(bookactions.setBookDetails(null));
     navigate("/");
+  };
+
+  const getTeamImage = () => {
+    switch (myTeam) {
+      case "MI":
+        return MI;
+      case "RCB":
+        return RCB;
+      case "CSK":
+        return CSK;
+      case "DC":
+        return DC;
+      case "KKR":
+        return KKR;
+      case "KP":
+        return KP;
+      case "LSG":
+        return LSG;
+      case "RR":
+        return RR;
+      case "SRH":
+        return SRH;
+      case "GT":
+        return GT;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -105,48 +130,16 @@ const UserProfile = () => {
 
           <div className="flex items-center space-x-4 mt-6">
             <div className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-2 border-blue-500">
-              {profileImage && typeof profileImage === "string" ? (
+              {getTeamImage() ? (
                 <img
-                  src={profileImage}
-                  alt="Profile"
+                  src={getTeamImage()}
+                  alt="Team Logo"
                   className="w-full h-full object-cover"
                 />
               ) : (
                 <span className="text-gray-400 flex items-center justify-center h-full">
                   No Image
                 </span>
-              )}
-              {isEditing && (
-                <>
-                  <button
-                    onClick={() => setShowUploadInput(true)}
-                    className="absolute bottom-2 right-1.5 bg-blue-500 p-1 rounded-full hover:bg-gray-100"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 text-gray-700"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15.232 5.232l3.536 3.536M6 18v3h3l10.39-10.39a2.5 2.5 0 00-3.536-3.536L6 15.293z"
-                      />
-                    </svg>
-                  </button>
-                  {showUploadInput && (
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="absolute inset-0 opacity-0 cursor-pointer"
-                      title="Upload Profile Image"
-                    />
-                  )}
-                </>
               )}
             </div>
           </div>
@@ -200,8 +193,6 @@ const UserProfile = () => {
           </div>
 
           <div className="w-full max-w-2xl mt-8 flex justify-end">
-            {" "}
-            {/* Added flex and justify-end here */}
             <button
               className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition"
               onClick={handleSignOut}
