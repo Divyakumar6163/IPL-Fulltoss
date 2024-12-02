@@ -7,56 +7,53 @@ import { Link } from "react-router-dom";
 // import { store } from "./../store/store";
 // import * as useractions from "./../store/actions/userinfoactions";
 // import * as authactions from "./../store/actions/authactions";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import GoogleLoginPage from "./Auth/login_signupgoogle";
-// import { ToLink } from "../App";
+import { ToLink } from "../App";
 import { notify } from "../util/notify";
 import Spinner from "../util/spinner";
-// import axios from "axios";
+import axios from "axios";
 function Login() {
   const [email, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   async function loginuser(e) {
-    // e.preventDefault();
-    // setLoading(true); // Start loading immediately
-    // try {
-    //   const data = {
-    //     emailid: email,
-    //     password: password,
-    //   };
-    //   // Check for empty fields
-    //   if (data.emailid === "" || data.password === "") {
-    //     notify("Please fill all the fields");
-    //     setLoading(false); // Stop loading on validation error
-    //     return;
-    //   }
-    //   // Perform login request
-    //   const response = await axios.post(`${ToLink}/user/login`, data, {
-    //     withCredentials: true,
-    //   });
-    //   // console.log(response);
-    //   if (response.data) {
-    //     store.dispatch(useractions.setuserinfo(response.data.user));
-    //     store.dispatch(authactions.setAccessToken(response.data.AccessToken));
-    //     store.dispatch(authactions.setRefreshToken(response.data.RefreshToken));
-    //     store.dispatch(useractions.setlogin(true));
-    //     notify("Login successful");
-    //     navigate("/");
-    //   }
-    //   setLoading(false);
-    // } catch (e) {
-    //   setLoading(false);
-    //   if (e.response && e.response.data) {
-    //     notify(e.response.data.message);
-    //     console.log(e.response.data.message);
-    //   } else {
-    //     notify("An unexpected error occurred");
-    //     console.log(e.message);
-    //   }
-    // }
+    e.preventDefault();
+    setLoading(true); // Start loading immediately
+    try {
+      const data = {
+        emailid: email,
+        password: password,
+      };
+      // Check for empty fields
+      if (data.emailid === "" || data.password === "") {
+        notify("Please fill all the fields");
+        setLoading(false); // Stop loading on validation error
+        return;
+      }
+      // Perform login request
+      const response = await axios.post(`${ToLink}/user/login`, data, {
+        withCredentials: true,
+      });
+      // console.log(response);
+      if (response.data) {
+        notify("Login successful");
+        console.log(response.data);
+        navigate("/");
+      }
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      if (e.response && e.response.data) {
+        notify(e.response.data.message);
+        console.log(e.response.data.message);
+      } else {
+        notify("An unexpected error occurred");
+        console.log(e.message);
+      }
+    }
   }
 
   return (

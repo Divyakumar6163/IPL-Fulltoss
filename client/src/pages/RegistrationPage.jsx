@@ -2,43 +2,48 @@ import React, { useState } from "react";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 import { ToLink } from "../App";
 import { useNavigate } from "react-router-dom";
 import { notify } from "../util/notify";
 import Spinner from "../util/spinner";
-
+import Teams from "../data/teams";
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const team = Teams[Math.floor(Math.random() * Teams.length)];
   const registerUser = async (e) => {
     e.preventDefault();
-    // try {
-    //   const userData = { name, email, password };
-    //   setLoading(true);
+    try {
+      const userData = { name, email, password };
+      setLoading(true);
+      // Validate inputs
+      if (!name || !email || !password) {
+        notify("Please fill all the fields");
+        setLoading(false);
+        return;
+      }
 
-    //   // Validate inputs
-    //   if (!name || !email || !password) {
-    //     notify("Please fill all the fields");
-    //     setLoading(false);
-    //     return;
-    //   }
-
-    //   // Send data to server
-    //   const response = await axios.post(`${ToLink}/user/register`, userData);
-    //   notify("Registration successful! Check your email for verification.");
-    //   navigate("/login");
-    //   setLoading(false);
-    //   console.log(response.data);
-    // } catch (error) {
-    //   setLoading(false);
-    //   notify(error.response?.data?.message || "An error occurred");
-    //   console.log(error);
-    // }
+      console.log(userData);
+      const response = await axios.post(`${ToLink}/user/register`, {
+        emailid: email,
+        name: name,
+        password: password,
+        team: team,
+      });
+      console.log(response);
+      notify("Registration successful! Check your email for verification.");
+      navigate("/login");
+      setLoading(false);
+      console.log(response.data);
+    } catch (error) {
+      setLoading(false);
+      notify(error.response?.data?.message || "An error occurred");
+      console.log(error);
+    }
   };
 
   return (

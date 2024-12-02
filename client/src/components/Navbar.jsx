@@ -2,7 +2,7 @@ import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { Link } from "react-router-dom";
 export default function NavBar() {
   return (
-    <Navbar fluid rounded>
+    <Navbar fluid>
       <Navbar.Brand href="https://flowbite-react.com">
         {/* <img
           src="/favicon.svg"
