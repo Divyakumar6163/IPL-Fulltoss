@@ -26,12 +26,18 @@ const RegisterPage = () => {
         setLoading(false);
         return;
       }
-      await axios.post(`${ToLink}/user/register`, {
-        emailid: email,
-        name: name,
-        password: password,
-        team: team,
-      });
+      await axios.post(
+        `${ToLink}/user/register`,
+        {
+          emailid: email,
+          name: name,
+          password: password,
+          team: team,
+        },
+        {
+          withCredentials: true, // Ensures cookies are sent
+        }
+      );
       notify("Registration successful! Check your email for verification.");
       localStorage.setItem("userInfo", JSON.stringify({ team }));
 
