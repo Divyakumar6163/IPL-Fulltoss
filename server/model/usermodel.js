@@ -9,10 +9,6 @@ const userSchema = new Schema({
     type: "string",
     required: true,
   },
-  profileImage: {
-    type: String,
-    default: "",
-  },
   emailid: {
     type: "string",
     required: true,

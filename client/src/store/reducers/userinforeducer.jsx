@@ -1,5 +1,3 @@
-// reducers/userinfoeeducer.js
-
 import * as userinfoaction from "../actions/userinfoactions.jsx";
 
 const initialState = {

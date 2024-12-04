@@ -1,5 +1,4 @@
 import React from "react";
-// import Logo from "../image/Logo.png";
 function Footer() {
   return (
     <footer className="bg-white dark:bg-gray-900">
@@ -7,13 +6,13 @@ function Footer() {
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <a href="/" className="flex items-center">
-              <img
+              {/* <img
                 // src={Logo}
                 className="h-8 me-3 border-2 "
-                alt="Digi Library Logo"
-              />
+                alt="Fulltoss Logo"
+              /> */}
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                Digi Library
+                Fulltoss
               </span>
             </a>
           </div>
@@ -24,8 +23,8 @@ function Footer() {
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a href="/bookStore" className="hover:underline">
-                    Books
+                  <a href="/" className="hover:underline">
+                    IPL Teams
                   </a>
                 </li>
                 <li>
@@ -89,7 +88,7 @@ function Footer() {
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
             <a href="/" className="hover:underline">
-              Digi Library™
+              Fulltoss™
             </a>
             . All Rights Reserved.
           </span>

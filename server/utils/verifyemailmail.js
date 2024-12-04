@@ -15,7 +15,6 @@ const sendmail = async (options) => {
         <p>This link will expire in 1 hours.</p>
     </body>
     </html>`;
-
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {

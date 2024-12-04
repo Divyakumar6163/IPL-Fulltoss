@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { notify } from "../util/notify";
 import Spinner from "../util/spinner";
 import Teams from "../data/teams";
+
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -15,34 +16,30 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const team = Teams[Math.floor(Math.random() * Teams.length)];
+
   const registerUser = async (e) => {
     e.preventDefault();
     try {
-      const userData = { name, email, password };
       setLoading(true);
-      // Validate inputs
       if (!name || !email || !password) {
         notify("Please fill all the fields");
         setLoading(false);
         return;
       }
-
-      console.log(userData);
-      const response = await axios.post(`${ToLink}/user/register`, {
+      await axios.post(`${ToLink}/user/register`, {
         emailid: email,
         name: name,
         password: password,
         team: team,
       });
-      console.log(response);
       notify("Registration successful! Check your email for verification.");
+      localStorage.setItem("userInfo", JSON.stringify({ team }));
+
       navigate("/login");
       setLoading(false);
-      console.log(response.data);
     } catch (error) {
       setLoading(false);
       notify(error.response?.data?.message || "An error occurred");
-      console.log(error);
     }
   };
 

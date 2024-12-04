@@ -3,18 +3,13 @@ const DummyUser = require("../model/unverifiedusermodel");
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 const verifyemail = require("../utils/verifyemailmail");
-// const crypto = require("crypto");
 const welcomeemail = require("../utils/welcomemail");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./../config.env" });
-// const catchAsync = require("./../../utils/catchAsync");
-const { OAuth2Client } = require("google-auth-library");
 const auth = require("../controller/authservice");
 const { promisify } = require("util");
-// const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-// const AppError = require("./../../utils/apperror");
 const validator = require("validator");
-// const { console } = require("inspector");
+const { console } = require("inspector");
 exports.getallusers = async (req, res) => {
   try {
     const alluser = await userSchema.find();
@@ -78,13 +73,6 @@ exports.createUsers = async (req, res) => {
         });
       }
       const newuser = await DummyUser.create(req.body);
-      // newuser.issetuppassword = true
-      // await newuser.save();
-      // await welcomeemail({
-      //   email: req.body.emailid,
-      //   subject: "Welcome to Digi Library",
-      //   name: req.body.name,
-      // });
       console.log(newuser);
       const newAccessToken = JWT.sign(
         { id: newuser._id },
@@ -117,7 +105,6 @@ exports.createUsers = async (req, res) => {
   }
 };
 exports.verifyuseremail = async (req, res) => {
-  // console.log(req.body.token);
   try {
     const decoded = await promisify(JWT.verify)(
       req.body.token,
@@ -131,7 +118,7 @@ exports.verifyuseremail = async (req, res) => {
       exituser[0].issetuppassword = true;
       await exituser[0].save();
       return res.status(200).json({
-        status: "eamil verifed ",
+        status: "email verifed ",
         // message: "Error while verifying user",
       });
     }
@@ -148,11 +135,11 @@ exports.verifyuseremail = async (req, res) => {
     await newuser.save();
     await welcomeemail({
       email: user.emailid,
-      subject: "Welcome to Digi Library",
+      subject: "Welcome to Fulltoss",
       name: user.name,
     });
     return res.status(200).json({
-      status: "eamil verifed ",
+      status: "email verifed ",
       // message: "Error while verifying user",
     });
   } catch (err) {
@@ -191,12 +178,11 @@ exports.getuserinfo = async (req, res) => {
   }
 };
 exports.profile = async (req, res) => {
-  const { name, profileImage, phoneno, about } = req.body;
+  const { name, phoneno, about } = req.body;
   console.log(req.body);
   try {
     let user = await userSchema.findByIdAndUpdate(req.body._id, {
       ...req.body,
-      profileImage: profileImage,
       phoneno: phoneno,
       about: about,
       name: name,
@@ -236,11 +222,6 @@ exports.userlogin = async (req, res) => {
       });
     }
     console.log(user1[0].password);
-    // if (!user1[0].password) {
-    //   return res.status(404).json({
-    //     message: "Plese set your password first through signup",
-    //   });
-    // }
     const user = await userSchema
       .findOne({ emailid: req.body.emailid })
       .select("+password");
@@ -264,51 +245,3 @@ exports.userlogin = async (req, res) => {
     });
   }
 };
-
-// exports.googleLoginSignup = catchAsync(async (req, res, next) => {
-//   const { token } = req.body;
-
-//   try {
-//     const ticket = await client.verifyIdToken({
-//       idToken: token,
-//       audience: process.env.GOOGLE_CLIENT_ID,
-//     });
-//     const payload = ticket.getPayload();
-//     const email = payload["email"].toLowerCase();
-//     const name = payload["name"];
-//     const profileImage = payload["picture"];
-//     console.log(email, name);
-//     let user = await userSchema.findOne({ emailid: email });
-//     console.log(user);
-//     if (!user) {
-//       emailid = email;
-//       // password = email + "@#$";
-//       // console.log(emailid, password);
-//       const userdetails = {
-//         name: name,
-//         emailid: email,
-//         // password: password,
-//         profileImage: profileImage,
-//       };
-//       // console.log(userdetails);
-//       user = await userSchema.create(userdetails);
-//       await welcomeemail({
-//         email: email,
-//         subject: "Welcome to Digi Library",
-//         name: name,
-//       });
-//       // console.log(user);
-//     } else {
-//       //   user.name = name;
-//       //   user.profileImage = profileImage;
-//       await user.save();
-//     }
-//     return auth.createSendToken(user, 201, res);
-//   } catch (err) {
-//     console.error(err);
-//     return res.status(500).json({
-//       message: "Login failed",
-//       error: err.message,
-//     });
-//   }
-// });

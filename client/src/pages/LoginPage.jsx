@@ -1,18 +1,16 @@
 import NavBar from "../components/Navbar";
 import React, { useState } from "react";
 import Footer from "../components/Footer";
-// import { store } from "./../store/store";
-// import { loginUser } from "../store2/userSlice";
 import { Link } from "react-router-dom";
 import { store } from "./../store/store";
 import * as useractions from "./../store/actions/userinfoactions";
 import * as authactions from "./../store/actions/authactions";
 import { useNavigate } from "react-router-dom";
-// import GoogleLoginPage from "./Auth/login_signupgoogle";
 import { ToLink } from "../App";
 import { notify } from "../util/notify";
 import Spinner from "../util/spinner";
 import axios from "axios";
+
 function Login() {
   const [email, setEmailId] = useState("");
   const [password, setPassword] = useState("");
@@ -21,30 +19,27 @@ function Login() {
 
   async function loginuser(e) {
     e.preventDefault();
-    setLoading(true); // Start loading immediately
+    setLoading(true);
     try {
       const data = {
         emailid: email,
         password: password,
       };
-      // Check for empty fields
       if (data.emailid === "" || data.password === "") {
         notify("Please fill all the fields");
-        setLoading(false); // Stop loading on validation error
+        setLoading(false);
         return;
       }
-      // Perform login request
       const response = await axios.post(`${ToLink}/user/login`, data, {
         withCredentials: true,
       });
-      // console.log(response);
       if (response.data) {
         store.dispatch(useractions.setuserinfo(response.data.user));
         store.dispatch(authactions.setAccessToken(response.data.AccessToken));
         store.dispatch(authactions.setRefreshToken(response.data.RefreshToken));
         store.dispatch(useractions.setlogin(true));
         notify("Login successful");
-        console.log(response.data);
+        localStorage.setItem("showAnimationAfterLogin", "true");
         navigate("/dashboard");
       }
       setLoading(false);
@@ -52,10 +47,8 @@ function Login() {
       setLoading(false);
       if (e.response && e.response.data) {
         notify(e.response.data.message);
-        console.log(e.response.data.message);
       } else {
         notify("An unexpected error occurred");
-        console.log(e.message);
       }
     }
   }
@@ -115,7 +108,7 @@ function Login() {
               </div>
               <div className="flex items-center justify-between">
                 <a
-                  href="/forgotpassword" // Adjust the path as needed
+                  href="/forgotpassword"
                   className="text-sm font-medium text-blue-600 hover:underline dark:text-primary-500"
                 >
                   Forgot password?
@@ -128,7 +121,6 @@ function Login() {
               >
                 {loading ? <Spinner /> : "Sign in"}
               </button>
-              <div>{/* <GoogleLoginPage /> */}</div>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account?{" "}
                 <Link

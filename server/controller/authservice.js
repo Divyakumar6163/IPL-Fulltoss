@@ -8,7 +8,8 @@ const { promisify } = require("util");
 dotenv.config({ path: "./../config.env" });
 const catchAsync = require("../utils/catchAsync");
 const email = require("../utils/resetpasswordmail");
-const bcryptsalt = process.env.BCRYPT_SALT;
+const { console } = require("inspector");
+
 exports.requestresetuserpassword = async (req, res) => {
   try {
     console.log(req.body.emailid);

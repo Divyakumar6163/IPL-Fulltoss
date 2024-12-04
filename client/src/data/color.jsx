@@ -8,6 +8,7 @@ import LSG from "../images/teamLogo/lsg.png";
 import RR from "../images/teamLogo/rr.png";
 import RCB from "../images/teamLogo/rcb.jpg";
 import SRH from "../images/teamLogo/srh.png";
+
 const teamColors = [
   {
     shortTeam: "CSK",
@@ -15,11 +16,12 @@ const teamColors = [
     team: "Chennai Super Kings (CSK)",
     colors: {
       heading: "#F7DC6F",
-      background: "linear-gradient(to top, #1e293b, #f7db00)", // Updated background
+      background: "linear-gradient(to top, #f7db00, #1e293b)",
       paragraph: "#1E3269",
-      text: "#000000",
-      div: "#FFF9DB", // Soft yellow
-      button: "#F7DC6F", // Yellow
+      text: "#FFD0EC",
+      card: "#FFF9DB",
+      button: "#F7DC6F",
+      border: "#FFD700",
     },
     logo: CSK,
   },
@@ -28,12 +30,13 @@ const teamColors = [
     fullTeam: "Delhi Capitals",
     team: "Delhi Capitals (DC)",
     colors: {
-      heading: "#004C93",
-      background: "linear-gradient(to top, #1e293b, #4f5db0)", // Updated background
+      heading: "#F31559",
+      background: "linear-gradient(to top, #004C93, #1e293b)",
       paragraph: "#EA1A21",
-      text: "#FFFFFF",
-      div: "#E1F5FE", // Light blue
-      button: "#004C93", // Navy blue
+      text: "#FED9ED",
+      card: "#E1F5FE",
+      button: "#004C93",
+      border: "#0A74DA",
     },
     logo: DC,
   },
@@ -42,12 +45,13 @@ const teamColors = [
     fullTeam: "Gujarat Titans",
     team: "Gujarat Titans (GT)",
     colors: {
-      heading: "#1C2B59",
-      background: "#EDEDED", // Old background retained
+      heading: "#F1F6F5",
+      background: "linear-gradient(to top, #1c2b59, #1e293b)",
       paragraph: "#E6B849",
-      text: "#000000",
-      div: "#F5F5F5", // Light grey
-      button: "#1C2B59", // Navy blue
+      text: "#F1F6F5",
+      card: "#F5F5F5",
+      button: "#1C2B59",
+      border: "#E6B849",
     },
     logo: GT,
   },
@@ -56,12 +60,13 @@ const teamColors = [
     fullTeam: "Kolkata Knight Riders",
     team: "Kolkata Knight Riders (KKR)",
     colors: {
-      heading: "#3A225D",
-      background: "linear-gradient(to top, #1e293b, #5755a7)", // Updated background
+      heading: "#F1F6F5",
+      background: "linear-gradient(to top, #3a225d, #1e293b)",
       paragraph: "#D1AB3E",
       text: "#FFFFFF",
-      div: "#F3E5F5", // Light purple
-      button: "#3A225D", // Purple
+      card: "#F3E5F5",
+      button: "#3A225D",
+      border: "#D1AB3E",
     },
     logo: KKR,
   },
@@ -70,12 +75,13 @@ const teamColors = [
     fullTeam: "Lucknow Super Giants",
     team: "Lucknow Super Giants (LSG)",
     colors: {
-      heading: "#0078FF",
-      background: "#E3F2FD", // Old background retained
-      paragraph: "#F0A500",
-      text: "#000000",
-      div: "#E6F7FF", // Light blue
-      button: "#0078FF", // Blue
+      heading: "#050C9C",
+      background: "linear-gradient(to top, #66b2ff, #e3f2fd)",
+      paragraph: "#FFD54F",
+      text: "#2E073F",
+      card: "#98DED9",
+      button: "#66B2FF",
+      border: "#98DED9",
     },
     logo: LSG,
   },
@@ -84,12 +90,13 @@ const teamColors = [
     fullTeam: "Mumbai Indians",
     team: "Mumbai Indians (MI)",
     colors: {
-      heading: "#000000",
-      background: "linear-gradient(to top, #1e293b, #13418b)", // Updated background
+      heading: "#3ABEF9",
+      background: "linear-gradient(to top, #004ba0, #1e293b)",
       paragraph: "#F7941D",
-      text: "#FFFFFF",
-      div: "#E3F2FD", // Light blue
-      button: "#004BA0", // Navy blue
+      text: "#DFF5FF",
+      card: "#E3F2FD",
+      button: "#004BA0",
+      border: "#0078D4",
     },
     logo: MI,
   },
@@ -98,12 +105,13 @@ const teamColors = [
     fullTeam: "Punjab Kings",
     team: "Punjab Kings (PBKS)",
     colors: {
-      heading: "#D71920",
-      background: "linear-gradient(to top, #1e293b, #d91c1f)", // Updated background
+      heading: "#FCF9BE",
+      background: "linear-gradient(to top, #d91c1f, #1e293b)",
       paragraph: "#D5D5D5",
-      text: "#FFFFFF",
-      div: "#FDECEA", // Light red
-      button: "#D71920", // Red
+      text: "#FEF5ED",
+      card: "#FDECEA",
+      button: "#D71920",
+      border: "#FF4C4C",
     },
     logo: KP,
   },
@@ -113,11 +121,12 @@ const teamColors = [
     team: "Rajasthan Royals (RR)",
     colors: {
       heading: "#EA1A82",
-      background: "linear-gradient(to top, #1e293b, #da237b)", // Updated background
+      background: "linear-gradient(to top, #da237b, #1e293b)",
       paragraph: "#003F77",
-      text: "#FFFFFF",
-      div: "#FCE4EC", // Light pink
-      button: "#EA1A82", // Pink
+      text: "#FFF5DE",
+      card: "#FCE4EC",
+      button: "#EA1A82",
+      border: "#FF6F91",
     },
     logo: RR,
   },
@@ -126,12 +135,13 @@ const teamColors = [
     fullTeam: "Royal Challengers Bangalore",
     team: "Royal Challengers Bangalore (RCB)",
     colors: {
-      heading: "#D50032",
-      background: "linear-gradient(to top, #1e293b, #a4261d)", // Updated background
+      heading: "#FFDF6B",
+      background: "linear-gradient(to top, #d50032, #1e293b)",
       paragraph: "#A19261",
       text: "#FFFFFF",
-      div: "#FDE8E8", // Light red
-      button: "#D50032", // Red
+      card: "#FDE8E8",
+      button: "#D50032",
+      border: "#FF5A5F",
     },
     logo: RCB,
   },
@@ -141,11 +151,12 @@ const teamColors = [
     team: "Sunrisers Hyderabad (SRH)",
     colors: {
       heading: "#F68C1E",
-      background: "linear-gradient(to top, #1e293b, #f26d22)", // Updated background
+      background: "linear-gradient(to top, #f68c1e, #1e293b)",
       paragraph: "#000000",
       text: "#FFFFFF",
-      div: "#FFF3E0", // Light orange
-      button: "#F68C1E", // Orange
+      card: "#FFF3E0",
+      button: "#F68C1E",
+      border: "#FFA726",
     },
     logo: SRH,
   },

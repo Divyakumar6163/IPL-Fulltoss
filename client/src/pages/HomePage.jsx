@@ -4,7 +4,8 @@ import DataCard from "../components/DataCard";
 import About from "../components/About";
 import Footer from "../components/Footer";
 import ContactForm from "../components/ContactUs";
-import styles from "./HeroPage.module.css";
+import styles from "./HomePage.module.css";
+
 export default function HeroPage() {
   return (
     <>
@@ -13,16 +14,16 @@ export default function HeroPage() {
       <About />
       <div className={styles.card}>
         <DataCard
-          heading="500+ Users Used"
-          para="Over 500 users have actively embraced our technology solutions this year, showcasing widespread engagement and satisfaction."
+          heading="10,000+ Fans Served"
+          para="Join the league of over 10,000 fans who have celebrated their love for cricket with exclusive IPL merchandise and gear from FullToss."
         />
         <DataCard
-          heading="300+ Books Published"
-          para="We proudly celebrated the publication of 300+ books, reflecting our commitment to advancing knowledge and thought leadership in the industry."
+          heading="500+ Products Available"
+          para="Explore our wide range of 500+ authentic IPL products, from jerseys and caps to collectibles that capture the spirit of the game."
         />
         <DataCard
-          heading="50+ Membership"
-          para="Our network expanded significantly with 50+ new memberships, highlighting our growing influence and community connections."
+          heading="100% Authentic Merchandise"
+          para="Shop with confidence knowing that all our products are officially licensed and crafted to meet the highest quality standards."
         />
       </div>
       <ContactForm />
