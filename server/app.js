@@ -15,8 +15,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      // "https://digital-library-alpha.vercel.app",
-      // "https://digital-library-cryf.onrender.com"
+      "https://ipl-fulltoss-kfi8.vercel.app/",
+      "https://ipl-fulltoss.onrender.com",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
